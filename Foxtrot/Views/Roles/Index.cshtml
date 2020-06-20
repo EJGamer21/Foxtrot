@@ -6,7 +6,7 @@
 
 <div class="card card-shadow card-table">
     <div class="card-header white">
-        <span class="card-title">Created roles</span>
+        <span class="card-title">Roles</span>
         <a class="btn btn-primary float-right"
            asp-controller="Roles"
            asp-action="Create">
@@ -32,7 +32,11 @@
                     <td>
                         <span>@role.Description</span>
                     </td>
-                    <td><img src="~/img/icono.editar.png" class="img-edit" alt="edit"/></td>
+                    <td>
+                        <a asp-controller="Roles" asp-action="Edit" asp-route-id="@role.Id">
+                            <img src="~/img/icono.editar.png" class="img-edit" alt="edit"/>
+                        </a>
+                    </td>
                 </tr>
             }
             </tbody>

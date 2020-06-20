@@ -6,7 +6,7 @@
 
 <div class="card card-shadow card-table">
     <div class="card-header white">
-        <span class="card-title">Created appointments</span>
+        <span class="card-title">Appointments</span>
         <a class="btn btn-primary float-right"
            asp-controller="Appointments"
            asp-action="Create">
@@ -17,11 +17,11 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">Servicio</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Creador</th>
-                <th scope="col">Proveedor</th>
-                <th scope="col">Nota</th>
+                <th scope="col">Service</th>
+                <th scope="col">Date</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Provider</th>
+                <th scope="col">Note</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -44,7 +44,11 @@
                     <td>
                         <span>@appointment.Note</span>
                     </td>
-                    <td><img src="~/img/icono.editar.png" class="img-edit" alt="edit"/></td>
+                    <td>
+                        <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@appointment.Id">
+                            <img src="~/img/icono.editar.png" class="img-edit" alt="edit"/>
+                        </a>
+                    </td>
                 </tr>
             }
             </tbody>

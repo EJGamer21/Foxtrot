@@ -49,7 +49,7 @@ namespace Foxtrot.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StartDate,EndDate,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,IsDeleted")] Appointment appointment)
+        public async Task<IActionResult> Create([FromForm] Appointment appointment)
         {
             if (ModelState.IsValid)
             {

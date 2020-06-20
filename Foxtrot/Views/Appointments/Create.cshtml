@@ -10,10 +10,10 @@
 
 <div class="card card-shadow card-padding">
     <div class="card-header white">
-        <span class="card-title">Nueva cita</span>
+        <span class="card-title">New appointment</span>
     </div>
     <div class="card-body">
-        <form>
+        <form asp-action="Create">
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="Service">Service</label>
@@ -42,7 +42,7 @@
                 <label for="exampleFormControlTextarea1">Note</label>
                 <textarea class="form-control" asp-for="Note" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary align-button-right">Crear cita</button>
+            <button type="submit" class="btn btn-primary align-button-right">Create</button>
           </form>
     </div>
 </div>

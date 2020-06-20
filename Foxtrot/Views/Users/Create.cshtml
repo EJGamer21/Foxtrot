@@ -35,7 +35,7 @@
                 <input asp-for="Dni" class="form-control" id="Dni">
             </div>
             <div class="form-group">
-                <label for="RoleId">Role</label>
+                @*<label for="RoleId">Role</label>*@
                 @*<select asp-for="Roles" name="RoleId" id="RoleId" asp-items="">
                     <option value="" selected="">Please select...</option>
                     @foreach (var role in ViewData["Roles"])
@@ -44,7 +44,7 @@
                     }
                 </select>*@
             </div>
-            <button type="submit" class="btn btn-primary align-button-right">Create role</button>
+            <button type="submit" class="btn btn-primary align-button-right">Create</button>
           </form>
     </div>
 </div>

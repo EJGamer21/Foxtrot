@@ -23,8 +23,7 @@ namespace Foxtrot.Controllers
         public async Task<IActionResult> Index()
         {
             var users = await _context.Users.Where(x => !x.IsDeleted).ToListAsync();
-            var roles = await _context.Roles.Where(x => !x.IsDeleted).ToListAsync();
-            return View(users, roles);
+            return View(users);
         }
 
         // GET: Users/Details/5
@@ -56,9 +55,9 @@ namespace Foxtrot.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FullName,Email,Address,Dni,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,IsDeleted")] User user)
+        public async Task<IActionResult> Create([FromForm] User user)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(user.Email) && !string.IsNullOrWhiteSpace(user.Dni))
             {
                 user.Id = Guid.NewGuid();
                 _context.Add(user);

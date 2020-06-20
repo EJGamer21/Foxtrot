@@ -54,9 +54,9 @@ namespace Foxtrot.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Duration,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,IsDeleted")] Service service)
+        public async Task<IActionResult> Create([FromForm] Service service)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(service.Name) && !string.IsNullOrWhiteSpace(service.Duration.ToString()))
             {
                 service.Id = Guid.NewGuid();
                 _context.Add(service);
