@@ -16,15 +16,15 @@
         <form>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="inputState">Service</label>
-                <select id="inputState" class="form-control">
+                <label for="Service">Service</label>
+                <select id="Service" class="form-control">
                   <option selected>Choose...</option>
                   <option>...</option>
                 </select>
               </div>
               <div class="form-group col-md-6">
-                <label for="inputState">Provider</label>
-                <select id="inputState" class="form-control">
+                <label for="Provider">Provider</label>
+                <select id="Provider" class="form-control">
                   <option selected>Choose...</option>
                   <option>...</option>
                 </select>
@@ -32,15 +32,15 @@
             </div>
             <div class="form-group">
               <label for="startDate">Start Date</label>
-              <input type="date" class="form-control" id="startDate">
+              <input type="date" asp-for="StartDate" class="form-control" id="startDate">
             </div>
             <div class="form-group">
               <label for="endDate">End Date</label>
-              <input type="date" class="form-control" id="endDate">
+              <input type="date" asp-for="EndDate" class="form-control" id="endDate">
             </div>
             <div class="form-group"> 
                 <label for="exampleFormControlTextarea1">Note</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" asp-for="Note" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
             <button type="submit" class="btn btn-primary align-button-right">Crear cita</button>
           </form>

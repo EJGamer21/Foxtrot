@@ -51,9 +51,9 @@ namespace Foxtrot.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,IsDeleted")] Role role)
+        public async Task<IActionResult> Create([FromForm] Role role)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrWhiteSpace(role.Name))
             {
                 role.Id = Guid.NewGuid();
                 _context.Add(role);
