@@ -1,4 +1,6 @@
 using System.Data.SqlClient;
+using Foxtrot.Repositories;
+using Foxtrot.Repositories.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +29,12 @@ namespace Foxtrot
                 options.UseSqlServer(new SqlConnection(Configuration.GetConnectionString("Default"))));
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IServiceRepository, ServiceRepository>();
+            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

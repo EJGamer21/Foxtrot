@@ -22,7 +22,7 @@ namespace Foxtrot.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Users.ToListAsync());
+            return View(await _context.Users.Where(x => !x.IsDeleted).ToListAsync());
         }
 
         // GET: Users/Details/5

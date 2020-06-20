@@ -15,7 +15,7 @@ body{
 #layout .navbar-brand{
     width: 125px;
     height: 60px;
-    background-image: url("../assets/imgs/logo.png");
+    background-image: url("../img/logo.jpg");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: unset;
@@ -34,7 +34,7 @@ date-left-menu,
 }
 
 date-left-menu .card-header {
-    padding: 0px;
+    padding: 0;
     margin-bottom: 0;
     background-color: white;
     border-bottom:none;
@@ -107,4 +107,8 @@ date-left-menu .btn.btn-link{
 .align-button-right{
     margin-left: auto !important;
     display: block !important;
+}
+
+.card-title {
+    font-size: 1.5em;
 }

@@ -3,26 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Foxtrot.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Foxtrot.Repositories
 {
-    public class BaseRepository<TEntity> where TEntity : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly FoxtrotContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        private readonly DbSet<T> _dbSet;
 
-        public BaseRepository(FoxtrotContext context)
+        protected BaseRepository(FoxtrotContext context)
         {
             _context = context;
-            _dbSet = context.Set<TEntity>();
+            _dbSet = context.Set<T>();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual async Task<IEnumerable<T>> Get(Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "")
         {
-            IQueryable<TEntity> query = _dbSet;
+            IQueryable<T> query = _dbSet;
             
             if (filter != null)
             {
@@ -45,26 +46,26 @@ namespace Foxtrot.Repositories
             }
         }
 
-        public virtual async Task<TEntity> GetById(object id)
+        public virtual async Task<T> GetById(object id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public virtual async Task Insert(TEntity entity)
+        public virtual async Task Insert(T entity)
         {
             await _dbSet.AddAsync(entity);
         }
 
-        public virtual async Task<TEntity> Delete(object id)
+        public virtual async Task<T> Delete(object id)
         {
-            TEntity entity = await GetById(id);
+            T entity = await GetById(id);
             Delete(entity);
             await _context.SaveChangesAsync();
             
             return entity;
         }
 
-        public virtual void Delete(TEntity entity)
+        public virtual void Delete(T entity)
         {
             if (_context.Entry(entity).State == EntityState.Detached)
             {
@@ -74,7 +75,7 @@ namespace Foxtrot.Repositories
             _dbSet.Remove(entity);
         }
 
-        public virtual async Task Update(TEntity entity)
+        public virtual async Task Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;

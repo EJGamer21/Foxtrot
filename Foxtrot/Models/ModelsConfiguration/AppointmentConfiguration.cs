@@ -15,6 +15,9 @@ namespace Foxtrot.Models.ModelsConfiguration
             builder.Property(x => x.EndDate)
                 .IsRequired();
 
+            builder.Property(x => x.Note)
+                .HasMaxLength(200);
+
             builder.HasOne(x => x.Service)
                 .WithMany(x => x.Appointments);
 

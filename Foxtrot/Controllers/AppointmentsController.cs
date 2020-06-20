@@ -2,15 +2,15 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Foxtrot.Models;
-using Foxtrot.Repositories;
+using Foxtrot.Repositories.Contracts;
 
 namespace Foxtrot.Controllers
 {
     public class AppointmentsController : Controller
     {
-        private readonly AppointmentRepository _appointmentRepository;
+        private readonly IAppointmentRepository _appointmentRepository;
 
-        public AppointmentsController(AppointmentRepository appointmentRepository)
+        public AppointmentsController(IAppointmentRepository appointmentRepository)
         {
             _appointmentRepository = appointmentRepository;
         }

@@ -4,305 +4,156 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Layout</title>
-    <link rel="stylesheet" href="../css/layout.css">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>@ViewData["Title"] - Foxtrot</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/layout.css"/>
 </head>
 <body id="layout" class="">
-    <date-header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
-                    <div class="navbar-brand" href="#">
-                        <!-- <img src="logo.jpg" alt="logo-wait" class="logo-brand"> -->
-                    </div>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                      <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                      </ul>
-                      <span class="navbar-text">
-                        Navbar text with an inline element
-                      </span>
-                    </div>
-                  </nav>
-     </date-header>
-    <date-body>
-         <div class="container">
-             <div class="row">
-                 <div class="col-md-3">
-                    <date-left-menu>
-                        <div class="accordion" id="accordionExample">
-                            <div class="card">
-                                <div class="card-header" id="headingOne">
+<date-header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+        <div class="navbar-brand" href="#">
+            @*img src="~/img/logo.jpg" alt="logo-brand" class="logo-brand">*@
+        </div>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarText"
+                aria-controls="navbarText"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Users" asp-action="Index">Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Services" asp-action="Index">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Appointments" asp-action="Index">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Roles" asp-action="Index">Roles</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</date-header>
+
+<date-body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <date-left-menu>
+                    <div class="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
                                 <div class="mb-0 content-option">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" 
-                                    data-target="#a" aria-expanded="true" aria-controls="collapseOne">
-                                       Cliente
+                                    <button class="btn btn-link"
+                                            type="button"
+                                            data-toggle="collapse" 
+                                            data-target="#a"
+                                            aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                        <span>Users</span>
                                     </button>
                                     <div class="arrow-bottom"></div>
                                 </div>
-                                </div>
-                                <!-- collapse show -->
-                                <div id="a" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            </div>
+                            <!-- collapse show -->
+                            <div id="a" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <ul>
-                                        <li>Opcion 1</li>
-                                        <li>Opcion 2</li>
-                                        <li>Opcion 3</li>
+                                        <li><a asp-controller="Users" asp-action="Create">Create</a></li>
+                                        <li><a asp-controller="Users" asp-action="Index">List</a></li>
                                     </ul>
                                 </div>
-                                </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header" id="headingTwo">
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
                                 <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" 
-                                    data-target="#e" aria-expanded="false" aria-controls="collapseTwo">
-                                        Mantenimiento
+                                    <button class="btn btn-link collapsed"
+                                            type="button"
+                                            data-toggle="collapse" 
+                                            data-target="#2"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                        <span>Services</span>
                                     </button>
                                     <div class="arrow-bottom"></div>
                                 </div>
-                                </div>
-                                <div id="e" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            </div>
+                            <div id="2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                 <div class="card-body">
-                                        <ul>
-                                                <li>Opcion 1</li>
-                                                <li>Opcion 2</li>
-                                                <li>Opcion 3</li>
-                                            </ul>
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                     data-target="#i" aria-expanded="false" aria-controls="collapseThree">
-                                        Consulta
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                                </div>
-                                <div id="i" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                        <ul>
-                                                <li>Opcion 1</li>
-                                                <li>Opcion 2</li>
-                                                <li>Opcion 3</li>
-                                            </ul>
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                    <div class="card-header" id="headingTwo">
-                                    <div class="mb-0 content-option">
-                                        <button class="btn btn-link collapsed" type="button" 
-                                        data-toggle="collapse" data-target="#o" aria-expanded="false" aria-controls="collapseTwo">
-                                            Mantenimiento
-                                        </button>
-                                        <div class="arrow-bottom"></div>
-                                    </div>
-                                    </div>
-                                    <div id="o" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                            <ul>
-                                                    <li>Opcion 1</li>
-                                                    <li>Opcion 2</li>
-                                                    <li>Opcion 3</li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" 
-                                    data-target="#u" aria-expanded="false" aria-controls="collapseThree">
-                                        Consulta
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                                </div>
-                                <div id="u" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                        <ul>
-                                                <li>Opcion 1</li>
-                                                <li>Opcion 2</li>
-                                                <li>Opcion 3</li>
-                                            </ul>
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                    <div class="card-header" id="headingThree">
-                                    <div class="mb-0 content-option">
-                                        <button class="btn btn-link collapsed" type="button"
-                                         data-toggle="collapse" data-target="#m" aria-expanded="false" aria-controls="collapseThree">
-                                            Consulta
-                                        </button>
-                                        <div class="arrow-bottom"></div>
-                                    </div>
-                                    </div>
-                                    <div id="m" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                            <ul>
-                                                    <li>Opcion 1</li>
-                                                    <li>Opcion 2</li>
-                                                    <li>Opcion 3</li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                            </div>
-                            <div class="card">
-                                    <div class="card-header" id="headingTwo">
-                                    <div class="mb-0 content-option">
-                                        <button class="btn btn-link collapsed" type="button"
-                                         data-toggle="collapse" data-target="#n" aria-expanded="false" aria-controls="collapseTwo">
-                                            Mantenimiento
-                                        </button>
-                                        <div class="arrow-bottom"></div>
-                                    </div>
-                                    </div>
-                                    <div id="n" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                            <ul>
-                                                    <li>Opcion 1</li>
-                                                    <li>Opcion 2</li>
-                                                    <li>Opcion 3</li>
-                                                </ul>
-                                            </div>
-                                    </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed" type="button" 
-                                    data-toggle="collapse" data-target="#t" aria-expanded="false" aria-controls="collapseThree">
-                                        Consulta
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                                </div>
-                                <div id="t" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                        <ul>
-                                            <li>Opcion 1</li>
-                                            <li>Opcion 2</li>
-                                            <li>Opcion 3</li>
-                                            </ul>
-                                        </div>
+                                    <ul>
+                                        <li><a asp-controller="Services" asp-action="Create">Create</a></li>
+                                        <li><a asp-controller="Services" asp-action="Index">List</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                    </date-left-menu>
-                 </div>
-                 <div class="col-md-9 content-body">
-                        <div class="card card-shadow card-table">
-                            <div class="card-header white">
-                                Citas creadas
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <div class="mb-0 content-option">
+                                    <button class="btn btn-link collapsed"
+                                            type="button"
+                                            data-toggle="collapse" 
+                                            data-target="#3"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                        <span>Appointments</span>
+                                    </button>
+                                    <div class="arrow-bottom"></div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                    <table class="table table-striped">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Servicio</th>
-                                                <th scope="col">Creador</th>
-                                                <th scope="col">Proveedor</th>
-                                                <th scope="col">Nota</th>
-                                                <th scope="col">Actions</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>mdo</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>fat</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>twitter</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>twitter</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                                <tr>
-                                                <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>twitter</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>twitter</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>twitter</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                                
-                                            </tbody>
-                                          </table>
+                            <div id="3" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <ul>
+                                        <li><a asp-controller="Appointments" asp-action="Create">Create</a></li>
+                                        <li><a asp-controller="Appointments" asp-action="Index">List</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                </div>
-             </div>
-         </div>
-   </date-body>
-   <date-footer>
-        eyyyy yo soy footer
-    </date-footer>
-</body>
+                        <div class="card">
+                            <div class="card-header" id="headingFour">
+                                <div class="mb-0 content-option">
+                                    <button class="btn btn-link collapsed"
+                                            type="button"
+                                            data-toggle="collapse" 
+                                            data-target="#4"
+                                            aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                        <span>Roles</span>
+                                    </button>
+                                    <div class="arrow-bottom"></div>
+                                </div>
+                            </div>
+                            <div id="4" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <ul>
+                                        <li><a asp-controller="Roles" asp-action="Create">Create</a></li>
+                                        <li><a asp-controller="Roles" asp-action="Index">List</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </date-left-menu>
+            </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+            <div class="col-md-9 content-body">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</date-body>
+</body>
 </html>
