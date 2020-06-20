@@ -8,54 +8,44 @@
 
 <h4>User</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="card card-shadow card-padding">
+    <div class="card-header white">
+        <span class="card-title">New user</span>
+    </div>
+    <div class="card-body">
+        <form asp-controller="Users" asp-action="Create" method="post">
             <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+              <label for="Id">Id</label>
+              <input readonly asp-for="Id" class="form-control" id="Id">
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+              <label for="FullName">FullName</label>
+              <input asp-for="FullName" class="form-control" id="FullName">
             </div>
             <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+              <label for="Email">Email</label>
+              <input asp-for="Email" class="form-control" id="Email">
             </div>
             <div class="form-group">
-                <label asp-for="Dni" class="control-label"></label>
-                <input asp-for="Dni" class="form-control" />
-                <span asp-validation-for="Dni" class="text-danger"></span>
+                <label for="Address">Address</label>
+                <textarea class="form-control" asp-for="Address" id="Address" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                <label for="Dni">Dni</label>
+                <input asp-for="Dni" class="form-control" id="Dni">
             </div>
             <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                <label for="RoleId">Role</label>
+                @*<select asp-for="Roles" name="RoleId" id="RoleId" asp-items="">
+                    <option value="" selected="">Please select...</option>
+                    @foreach (var role in ViewData["Roles"])
+                    {
+                        <option value="@role.Id">@role.Name</option>
+                    }
+                </select>*@
             </div>
-            <div class="form-group">
-                <label asp-for="UpdatedDate" class="control-label"></label>
-                <input asp-for="UpdatedDate" class="form-control" />
-                <span asp-validation-for="UpdatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdatedBy" class="control-label"></label>
-                <input asp-for="UpdatedBy" class="form-control" />
-                <span asp-validation-for="UpdatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+            <button type="submit" class="btn btn-primary align-button-right">Create role</button>
+          </form>
     </div>
 </div>
 

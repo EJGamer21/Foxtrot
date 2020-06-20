@@ -6,7 +6,7 @@
 
 <div class="card card-shadow card-table">
     <div class="card-header white">
-        <span class="card-title">Citas creadas</span>
+        <span class="card-title">Created appointments</span>
         <a class="btn btn-primary float-right"
            asp-controller="Appointments"
            asp-action="Create">
@@ -17,9 +17,8 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Fecha</th>
                 <th scope="col">Servicio</th>
+                <th scope="col">Fecha</th>
                 <th scope="col">Creador</th>
                 <th scope="col">Proveedor</th>
                 <th scope="col">Nota</th>
@@ -30,14 +29,11 @@
             @foreach (var appointment in Model)
             {
                 <tr>
-                    <th scope="row">
-                        <span>@Html.DisplayFor(x => appointment.Id)</span>
-                    </th>
-                    <td>
-                        <span>@appointment.StartDate - @appointment.EndDate</span>
-                    </td>
                     <td>
                         <span>@appointment.Service.Name</span>
+                    </td>
+                    <td>
+                        <span>@appointment.StartDate - @appointment.EndDate</span>
                     </td>
                     <td>
                         <span>@appointment.Creator.FullName</span>
