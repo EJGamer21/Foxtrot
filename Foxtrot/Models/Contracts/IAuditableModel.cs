@@ -2,7 +2,7 @@
 
 namespace Foxtrot.Models.Contracts
 {
-    public interface IAuditable
+    public interface IAuditableModel
     {
         public DateTime CreatedDate { get; set; }
         public Guid CreatedBy { get; set; }

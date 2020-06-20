@@ -15,6 +15,14 @@ namespace Foxtrot.Models.ModelsConfiguration
 
             builder.Property(x => x.Description)
                 .HasMaxLength(200);
+            
+            builder.Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+            
+            /*builder.Property(x => x.RowVersion)
+                .HasColumnType("datetime2")
+                .IsRowVersion()
+                .IsRequired();*/
         }
     }
 }

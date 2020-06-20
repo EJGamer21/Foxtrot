@@ -19,10 +19,18 @@ namespace Foxtrot.Models.ModelsConfiguration
                 .WithMany(x => x.Appointments);
 
             builder.HasOne(x => x.Creator)
-                .WithMany(x => x.Appointments);
+                .WithMany(x => x.MyAppointments);
 
             builder.HasOne(x => x.Provider)
                 .WithMany(x => x.Appointments);
+            
+            builder.Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+            
+            /*builder.Property(x => x.RowVersion)
+                .HasColumnType("datetime2")
+                .IsRowVersion()
+                .IsRequired();*/
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Layout</title>
     <link rel="stylesheet" href="../css/layout.css">
-    
+    <link rel="stylesheet" href="../css/new_services.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body id="layout" class="">
@@ -196,9 +196,9 @@
                                 <div id="t" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                                 <div class="card-body">
                                         <ul>
-                                            <li>Opcion 1</li>
-                                            <li>Opcion 2</li>
-                                            <li>Opcion 3</li>
+                                                <li>Opcion 1</li>
+                                                <li>Opcion 2</li>
+                                                <li>Opcion 3</li>
                                             </ul>
                                         </div>
                                 </div>
@@ -207,92 +207,86 @@
                     </date-left-menu>
                  </div>
                  <div class="col-md-9 content-body">
-                        <div class="card card-shadow card-table">
+                        <div class="card card-shadow card-padding">
                             <div class="card-header white">
-                                Citas creadas
+                                Nuevo servicio
                             </div>
                             <div class="card-body">
-                                    <table class="table table-striped">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Fecha</th>
-                                                <th scope="col">Servicio</th>
-                                                <th scope="col">Creador</th>
-                                                <th scope="col">Proveedor</th>
-                                                <th scope="col">Nota</th>
-                                                <th scope="col">Actions</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>mdo</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                              </tr>
-                                              <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>fat</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>twitter</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                              <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>twitter</td>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                                <tr>
-                                                <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>twitter</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>twitter</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">3</th>
-                                                    <td>Larry</td>
-                                                    <td>the Bird</td>
-                                                    <td>twitter</td>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
-                                             </tr>
-                                                
-                                            </tbody>
-                                          </table>
+                                <form>
+                                    <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                        <label for="name">Nombre</label>
+                                        <input type="text" class="form-control" id="name">
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                            <label for="servicetype">Tipo de Servicio</label>
+                                            <select id="servicetype" class="form-control">
+                                              <option selected>Choose...</option>
+                                              <option>...</option>
+                                            </select>
+                                      </div>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="duration">Duración</label>
+                                      <input type="number" class="form-control" id="duration" placeholder="1234">
+                                    </div>
+                                    
+                                   
+                                    <div class="form-group">
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="status">
+                                        <label class="form-check-label" for="status">
+                                          Estatus
+                                        </label>
+                                      </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary align-button-right">Crear</button>
+                                  </form>
                             </div>
                         </div>
+                        <br /> 
+                        <div class="card card-shadow card-table">
+                                <div class="card-header white">
+                                    Servicios creados
+                                </div>
+                                <div class="card-body no-padding">
+                                        <table class="table table-striped">
+                                                <thead>
+                                                  <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Duración</th>
+                                                    <th scope="col">Estado</th> 
+                                                    <th scope="col">Actions</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody>
+                                                  <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td> 
+                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
+                                                  </tr>
+                                                  <tr>
+                                                    <th scope="row">2</th>
+                                                    <td>Jacob</td>
+                                                    <td>Thornton</td>
+                                                    <td>@fat</td> 
+                                                    <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
+                                                 </tr> 
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Larry</td>
+                                                        <td>the Bird</td>
+                                                        <td>@twitter</td> 
+                                                        <td><img src="../assets/imgs/icono.editar.png" class="img-edit"/></td> 
+                                                 </tr>
+                                                    
+                                                </tbody>
+                                              </table>
+                                </div>
+                            </div>
                 </div>
              </div>
          </div>

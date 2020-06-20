@@ -12,6 +12,7 @@ namespace Foxtrot.Models
         public string Address { get; set; }
         public string Dni { get; set; }
         public Role Role { get; set; }
+        public IEnumerable<Appointment> MyAppointments { get; set; }
         public IEnumerable<Appointment> Appointments { get; set; }
     }
 }

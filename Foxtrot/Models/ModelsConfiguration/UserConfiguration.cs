@@ -26,6 +26,14 @@ namespace Foxtrot.Models.ModelsConfiguration
             
             builder.HasOne(x => x.Role)
                 .WithMany(x => x.Users);
+            
+            builder.Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+            
+            /*builder.Property(x => x.RowVersion)
+                .HasColumnType("datetime2")
+                .IsRowVersion()
+                .IsRequired();*/
         }
     }
 }

@@ -1,0 +1,72 @@
+﻿register-container {
+    display: flex;
+    width: 85%;
+    height: 550px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: white;
+    left: 0;
+    right: 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: #0000ff38 1px 1px 17px 1px;
+}
+
+register-container-left {
+    /* display: flex; */
+    flex: 1;
+    background: #587289;
+    position: relative;
+}
+
+register-container-right {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 35px;
+}
+
+body {
+    background: #ced4da !important;
+}
+
+container-left {display: flex;height: 100%;}
+
+img.logo-img {
+    margin: auto;
+    display: block;
+}
+
+container-right-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+register-container-right .register-title {
+    color: #587289;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+register-container-right .register-sub-title {
+    font-size: 13px;
+}
+register-container-right .form-group.group-register-button {
+    display: flex;
+}
+
+register-container-right button.btn.btn-default {
+    flex: 1;
+    background: #ced4da;
+}
+
+register-container-right button.btn.btn-primary {
+    flex: 1;
+    background: #587289 !important;
+}
+register-container-right .form-group.group-register-button button {
+    border-radius: 0;
+    border: none;
+}
