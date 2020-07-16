@@ -16,5 +16,6 @@ namespace Foxtrot.Repositories.Contracts
         Task<T> Delete(object id);
         void Delete(T entity);
         Task Update(T entity);
+        Task SaveChangesAsync();
     }
 }

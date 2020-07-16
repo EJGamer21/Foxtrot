@@ -1,7 +1,7 @@
-﻿@model Foxtrot.Models.Appointment
+﻿@model Foxtrot.Dtos.AppointmentDto
 
 @{
-    ViewData["Title"] = "Edit";
+  ViewData["Title"] = "Edit";
 }
 
 <h1>Edit</h1>
@@ -10,44 +10,56 @@
 <hr />
 
 <div class="card card-shadow card-padding">
-    <div class="card-header white">
-        <span class="card-title">Nueva cita</span>
-    </div>
-    <div class="card-body">
-        <form asp-action="Edit">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="Service">Service</label>
-                <select id="Service" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-              <div class="form-group col-md-6">
-                <label for="Provider">Provider</label>
-                <select id="Provider" class="form-control">
-                  <option selected>Choose...</option>
-                  <option>...</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="startDate">Start Date</label>
-              <input type="date" asp-for="StartDate" class="form-control" id="startDate">
-            </div>
-            <div class="form-group">
-              <label for="endDate">End Date</label>
-              <input type="date" asp-for="EndDate" class="form-control" id="endDate">
-            </div>
-            <div class="form-group"> 
-                <label for="exampleFormControlTextarea1">Note</label>
-                <textarea class="form-control" asp-for="Note" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary align-button-right">Save</button>
-          </form>
-    </div>
+  <div class="card-header white">
+    <span class="card-title">Editar cita</span>
+  </div>
+  <div class="card-body">
+    <form asp-action="Edit" method="post">
+      <div class="form-group">
+        <label for="Id">Id</label>
+        <input readonly asp-for="Id" class="form-control" id="Id">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="Service">Service</label>
+          <select asp-for="ServiceId" id="Service" class="form-control">
+            <option>Choose...</option>
+            <option selected value="@ViewBag.Appointment.Service.Id">@ViewBag.Appointment.Service.Name</option>
+            @foreach (Service service in ViewBag.Services)
+            {
+              <option value="@service.Id">@service.Name</option>
+            }
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="Provider">Provider</label>
+          <select asp-for="ProviderId" id="Provider" class="form-control">
+            <option selected>Choose...</option>
+            <option selected value="@ViewBag.Appointment.Provider.Id">@ViewBag.Appointment.Provider.FullName</option>
+            @foreach (User provider in ViewBag.Providers)
+            {
+              <option value="@provider.Id">@provider.FullName</option>
+            }
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input type="datetime-local" asp-for="StartDate" value="@ViewBag.Appointment.StartDate.ToString("yyyy-MM-ddThh:mm")" class="form-control" id="startDate">
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input type="datetime-local" asp-for="EndDate" value="@ViewBag.Appointment.EndDate.ToString("yyyy-MM-ddThh:mm")" class="form-control" id="endDate">
+      </div>
+      <div class="form-group"> 
+        <label for="note">Note</label>
+        <textarea class="form-control" name="Note" id="note" rows="3">@ViewBag.Appointment.Note</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary align-button-right">Save</button>
+    </form>
+  </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+  <a asp-action="Index">Back to List</a>
 </div>
