@@ -62,7 +62,16 @@ namespace Foxtrot.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _appointmentRepository.Insert(await ConvertToEntity(appointmentDto));
+                await _appointmentRepository.Insert(new Appointment
+                {
+                    Note = appointmentDto.Note,
+                    //Creator = await _userRepository.GetById(entity.CreatorId),
+                    Creator = _userRepository.Get().Result.First(),
+                    Provider = await _userRepository.GetById(appointmentDto.ProviderId),
+                    Service = await _serviceRepository.GetById(appointmentDto.ServiceId),
+                    StartDate = appointmentDto.StartDate,
+                    EndDate = appointmentDto.EndDate
+                });
                 await _appointmentRepository.SaveChangesAsync();
                 
                 return RedirectToAction(nameof(Index));
@@ -114,20 +123,6 @@ namespace Foxtrot.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View();
-        }
-
-        private async Task<Appointment> ConvertToEntity(AppointmentDto appointmentDto)
-        {
-            return new Appointment
-            {
-                Note = appointmentDto.Note,
-                //Creator = await _userRepository.GetById(entity.CreatorId),
-                Creator = _userRepository.Get().Result.First(),
-                Provider = await _userRepository.GetById(appointmentDto.ProviderId),
-                Service = await _serviceRepository.GetById(appointmentDto.ServiceId),
-                StartDate = appointmentDto.StartDate,
-                EndDate = appointmentDto.EndDate
-            };
         }
 
         // GET: Appointments/Delete/5

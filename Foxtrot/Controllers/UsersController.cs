@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Foxtrot.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Foxtrot;
 using Foxtrot.Models;
 
 namespace Foxtrot.Controllers
@@ -34,8 +32,7 @@ namespace Foxtrot.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
                 return NotFound();
@@ -45,8 +42,9 @@ namespace Foxtrot.Controllers
         }
 
         // GET: Users/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Roles = await _context.Roles.ToListAsync();
             return View();
         }
 
@@ -55,16 +53,23 @@ namespace Foxtrot.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] User user)
+        public async Task<IActionResult> Create([FromForm] UserDto userDto)
         {
-            if (!string.IsNullOrWhiteSpace(user.Email) && !string.IsNullOrWhiteSpace(user.Dni))
+            if (!string.IsNullOrWhiteSpace(userDto.Email) && !string.IsNullOrWhiteSpace(userDto.Dni))
             {
-                user.Id = Guid.NewGuid();
-                _context.Add(user);
+                await _context.AddAsync(new User
+                {
+                    Id = new Guid(),
+                    FullName = userDto.FullName,
+                    Email = userDto.Email,
+                    Address = userDto.Address,
+                    Dni = userDto.Dni,
+                    Role = await _context.Roles.FindAsync(userDto.RoleId)
+                });
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View();
         }
 
         // GET: Users/Edit/5
@@ -75,12 +80,17 @@ namespace Foxtrot.Controllers
                 return NotFound();
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
+            
+            ViewBag.User = user;
+            ViewBag.Roles = await _context.Roles.ToListAsync();
             if (user == null)
             {
                 return NotFound();
             }
-            return View(user);
+            return View();
         }
 
         // POST: Users/Edit/5
@@ -88,9 +98,9 @@ namespace Foxtrot.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,FullName,Email,Address,Dni,CreatedDate,CreatedBy,UpdatedDate,UpdatedBy,IsDeleted")] User user)
+        public async Task<IActionResult> Edit(Guid id, [FromForm] UserDto userDto)
         {
-            if (id != user.Id)
+            if (id != userDto.Id)
             {
                 return NotFound();
             }
@@ -99,12 +109,19 @@ namespace Foxtrot.Controllers
             {
                 try
                 {
+                    User user = await _context.Users.FindAsync(userDto.Id);
+                    user.Address = userDto.Address;
+                    user.FullName = userDto.FullName;
+                    user.Email = userDto.Email;
+                    user.Dni = userDto.Dni;
+                    user.Role = await _context.Roles.FindAsync(userDto.RoleId);
+                    
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserExists(user.Id))
+                    if (!UserExists(userDto.Id))
                     {
                         return NotFound();
                     }
@@ -115,7 +132,7 @@ namespace Foxtrot.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return View();
         }
 
         // GET: Users/Delete/5
