@@ -2,24 +2,35 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Foxtrot.Dtos;
+using Foxtrot.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Foxtrot.Models;
+using Foxtrot.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace Foxtrot.Controllers
 {
     public class UsersController : Controller
     {
         private readonly FoxtrotContext _context;
+        private readonly IUserRepository _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UsersController(FoxtrotContext context)
+        public UsersController(FoxtrotContext context, IUserRepository userRepository,
+            IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Users
         public async Task<IActionResult> Index()
         {
+            if (!_httpContextAccessor.HttpContext.IsUserLoggedIn())
+                return RedirectToAction("Index", "Access");
+            
             var users = await _context.Users.Where(x => !x.IsDeleted).ToListAsync();
             return View(users);
         }
@@ -55,21 +66,29 @@ namespace Foxtrot.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromForm] UserDto userDto)
         {
-            if (!string.IsNullOrWhiteSpace(userDto.Email) && !string.IsNullOrWhiteSpace(userDto.Dni))
+            try
             {
-                await _context.AddAsync(new User
+                if (!string.IsNullOrWhiteSpace(userDto.Email) && !string.IsNullOrWhiteSpace(userDto.Dni))
                 {
-                    Id = new Guid(),
-                    FullName = userDto.FullName,
-                    Email = userDto.Email,
-                    Address = userDto.Address,
-                    Dni = userDto.Dni,
-                    Role = await _context.Roles.FindAsync(userDto.RoleId)
-                });
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                    await _context.AddAsync(new User
+                    {
+                        Id = new Guid(),
+                        FullName = userDto.FullName,
+                        Email = userDto.Email,
+                        Address = userDto.Address,
+                        Dni = userDto.Dni,
+                        Role = await _context.Roles.FindAsync(userDto.RoleId)
+                    });
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View();
             }
-            return View();
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = "Has been an error."});
+            }
         }
 
         // GET: Users/Edit/5

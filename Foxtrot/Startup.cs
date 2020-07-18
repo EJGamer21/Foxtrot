@@ -70,7 +70,7 @@ namespace Foxtrot
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Appointments}/{action=Index}/{id?}");
+                    pattern: "{controller=Access}/{action=Index}/{id?}");
             });
         }
     }

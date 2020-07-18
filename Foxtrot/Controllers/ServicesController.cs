@@ -6,22 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Foxtrot;
+using Foxtrot.Extensions;
 using Foxtrot.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Foxtrot.Controllers
 {
     public class ServicesController : Controller
     {
         private readonly FoxtrotContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ServicesController(FoxtrotContext context)
+        public ServicesController(FoxtrotContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Services
         public async Task<IActionResult> Index()
         {
+            if (!_httpContextAccessor.HttpContext.IsUserLoggedIn())
+                return RedirectToAction("Index", "Access");
+            
             return View(await _context.Services.ToListAsync());
         }
 

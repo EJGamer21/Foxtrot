@@ -52,8 +52,8 @@ namespace Foxtrot
 
             if (auditableEntitySet.Any())
             {
-                //Guid userId = _httpContextAccessor.HttpContext.GetLoggedUserId();
-                Guid userId = new Guid("9F917B76-5B52-4DF2-9A9E-D99875777AC4");
+                Guid userId = _httpContextAccessor.HttpContext.GetLoggedUserId();
+                //Guid userId = new Guid("9F917B76-5B52-4DF2-9A9E-D99875777AC4");
                 DateTime currentDate = DateTime.Now;
 
                 // Set the audit information for each record
