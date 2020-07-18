@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Foxtrot.Dtos;
+using Foxtrot.Enums;
 using Foxtrot.Extensions;
 using Foxtrot.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +58,7 @@ namespace Foxtrot.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Services = await _serviceRepository.Get();
-            ViewBag.Providers = await _userRepository.Get();
+            ViewBag.Providers = await _userRepository.Get(u => u.Role.Id == RoleEnum.Provider);
             return View();
         }
 
@@ -73,8 +74,7 @@ namespace Foxtrot.Controllers
                 await _appointmentRepository.Insert(new Appointment
                 {
                     Note = appointmentDto.Note,
-                    //Creator = await _userRepository.GetById(entity.CreatorId),
-                    Creator = _userRepository.Get().Result.First(),
+                    Creator = await _userRepository.GetById(_httpContextAccessor.HttpContext.GetLoggedUserId()),
                     Provider = await _userRepository.GetById(appointmentDto.ProviderId),
                     Service = await _serviceRepository.GetById(appointmentDto.ServiceId),
                     StartDate = appointmentDto.StartDate,
