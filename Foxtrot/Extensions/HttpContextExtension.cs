@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.AspNetCore.Http;
 
 namespace Foxtrot.Extensions
@@ -8,15 +7,13 @@ namespace Foxtrot.Extensions
     {
         public static Guid GetLoggedUserId(this HttpContext httpContext)
         {
-            /*return httpContext.User == null
+            var userId = httpContext.Session.GetString("UserId");
+            return string.IsNullOrWhiteSpace(userId)
                 ? Guid.Empty
-                : new Guid(httpContext.User.Claims
-                    .Single(claim => claim.Type == "sid").Value);*/
-            
-            Guid userId = new Guid(httpContext.User.Claims
-                .FirstOrDefault(claim => claim.Type == "sid")?.Value ?? string.Empty);
-
-            return new Guid("9F917B76-5B52-4DF2-9A9E-D99875777AC4");
+                : new Guid(userId);
         }
+
+        public static bool IsUserLoggedIn(this HttpContext httpContext) =>
+            GetLoggedUserId(httpContext) != Guid.Empty;
     }
 }

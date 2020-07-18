@@ -1,3 +1,4 @@
+using System;
 using System.Data.SqlClient;
 using Foxtrot.Repositories;
 using Foxtrot.Repositories.Contracts;
@@ -23,6 +24,12 @@ namespace Foxtrot
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+            });
+            
             services.AddControllersWithViews();
             
             services.AddDbContext<FoxtrotContext>(options => 
@@ -53,6 +60,7 @@ namespace Foxtrot
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -62,7 +70,7 @@ namespace Foxtrot
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Appointments}/{action=Index}/{id?}");
+                    pattern: "{controller=Access}/{action=Index}/{id?}");
             });
         }
     }

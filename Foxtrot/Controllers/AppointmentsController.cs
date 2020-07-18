@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Foxtrot.Dtos;
+using Foxtrot.Extensions;
 using Foxtrot.Models;
 using Microsoft.AspNetCore.Mvc;
 using Foxtrot.Repositories.Contracts;
+using Microsoft.AspNetCore.Http;
 
 namespace Foxtrot.Controllers
 {
@@ -13,18 +15,24 @@ namespace Foxtrot.Controllers
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IServiceRepository _serviceRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AppointmentsController(IAppointmentRepository appointmentRepository,
-            IServiceRepository serviceRepository, IUserRepository userRepository)
+            IServiceRepository serviceRepository, IUserRepository userRepository,
+            IHttpContextAccessor httpContextAccessor)
         {
             _appointmentRepository = appointmentRepository;
             _serviceRepository = serviceRepository;
             _userRepository = userRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Appointments
         public async Task<IActionResult> Index()
         {
+            if (!_httpContextAccessor.HttpContext.IsUserLoggedIn())
+                return RedirectToAction("Index", "Access");
+            
             return View(await _appointmentRepository.Get());
         }
 

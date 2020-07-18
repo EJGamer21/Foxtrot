@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Foxtrot.Dtos;
 using Foxtrot.Models;
 using Foxtrot.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +33,7 @@ namespace Foxtrot.Repositories
                 .Include(a => a.Creator)
                 .Include(a => a.Provider)
                 .Include(a => a.Service)
+                .Where(a => !a.IsDeleted)
                 .ToListAsync();
         }
     }

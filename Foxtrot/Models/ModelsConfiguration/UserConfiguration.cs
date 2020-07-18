@@ -13,9 +13,15 @@ namespace Foxtrot.Models.ModelsConfiguration
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder.HasIndex(x => x.Email)
+                .IsUnique();
+
             builder.Property(x => x.Email)
                 .HasMaxLength(200)
                 .IsRequired();
+
+            builder.Property(x => x.Password)
+                .HasMaxLength(200);
 
             builder.Property(x => x.Address)
                 .HasMaxLength(200);

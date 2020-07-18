@@ -1,160 +1,172 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@ViewData["Title"] - Foxtrot</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/layout.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>@ViewData["Title"] - Foxtrot</title>
+  <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="~/css/layout.css"/>
 </head>
 <body id="layout" class="">
 <date-header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
-        <div class="navbar-brand" href="#">
-            @*img src="~/img/logo.jpg" alt="logo-brand" class="logo-brand">*@
-        </div>
-        <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarText"
-                aria-controls="navbarText"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+    <div class="navbar-brand" href="#">
+      @*img src="~/img/logo.jpg" alt="logo-brand" class="logo-brand">*@
+    </div>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarText"
+            aria-controls="navbarText"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
         
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Users" asp-action="Index">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Services" asp-action="Index">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Appointments" asp-action="Index">Appointments</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-controller="Roles" asp-action="Index">Roles</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" asp-controller="Users" asp-action="Index">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" asp-controller="Services" asp-action="Index">Services</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" asp-controller="Appointments" asp-action="Index">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" asp-controller="Roles" asp-action="Index">Roles</a>
+        </li>
+      </ul>
+           
+      <div class="mr-2">
+        <span class="text-light">@Context.Session.GetString("User_FullName")</span>
+      </div>
+      
+      <div>
+        <form asp-controller="Access" asp-action="Logout" method="post">
+          <input hidden type="text" value="1"/>
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+      </div>
+            
+    </div>
+  </nav>
 </date-header>
 
 <date-body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <date-left-menu>
-                    <div class="accordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link"
-                                            type="button"
-                                            data-toggle="collapse" 
-                                            data-target="#a"
-                                            aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                        <span>Users</span>
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                            </div>
-                            <!-- collapse show -->
-                            <div id="a" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a asp-controller="Users" asp-action="Create">Create</a></li>
-                                        <li><a asp-controller="Users" asp-action="Index">List</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed"
-                                            type="button"
-                                            data-toggle="collapse" 
-                                            data-target="#2"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                        <span>Services</span>
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                            </div>
-                            <div id="2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a asp-controller="Services" asp-action="Create">Create</a></li>
-                                        <li><a asp-controller="Services" asp-action="Index">List</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingThree">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed"
-                                            type="button"
-                                            data-toggle="collapse" 
-                                            data-target="#3"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                        <span>Appointments</span>
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                            </div>
-                            <div id="3" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a asp-controller="Appointments" asp-action="Create">Create</a></li>
-                                        <li><a asp-controller="Appointments" asp-action="Index">List</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingFour">
-                                <div class="mb-0 content-option">
-                                    <button class="btn btn-link collapsed"
-                                            type="button"
-                                            data-toggle="collapse" 
-                                            data-target="#4"
-                                            aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                        <span>Roles</span>
-                                    </button>
-                                    <div class="arrow-bottom"></div>
-                                </div>
-                            </div>
-                            <div id="4" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        <li><a asp-controller="Roles" asp-action="Create">Create</a></li>
-                                        <li><a asp-controller="Roles" asp-action="Index">List</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </date-left-menu>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <date-left-menu>
+          <div class="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <div class="mb-0 content-option">
+                  <button class="btn btn-link"
+                          type="button"
+                          data-toggle="collapse" 
+                          data-target="#a"
+                          aria-expanded="true"
+                          aria-controls="collapseOne">
+                    <span>Users</span>
+                  </button>
+                  <div class="arrow-bottom"></div>
+                </div>
+              </div>
+              <!-- collapse show -->
+              <div id="a" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  <ul>
+                    <li><a asp-controller="Users" asp-action="Create">Create</a></li>
+                    <li><a asp-controller="Users" asp-action="Index">List</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <div class="mb-0 content-option">
+                  <button class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse" 
+                          data-target="#2"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo">
+                    <span>Services</span>
+                  </button>
+                  <div class="arrow-bottom"></div>
+                </div>
+              </div>
+              <div id="2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                  <ul>
+                    <li><a asp-controller="Services" asp-action="Create">Create</a></li>
+                    <li><a asp-controller="Services" asp-action="Index">List</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <div class="mb-0 content-option">
+                  <button class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse" 
+                          data-target="#3"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo">
+                    <span>Appointments</span>
+                  </button>
+                  <div class="arrow-bottom"></div>
+                </div>
+              </div>
+              <div id="3" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                  <ul>
+                    <li><a asp-controller="Appointments" asp-action="Create">Create</a></li>
+                    <li><a asp-controller="Appointments" asp-action="Index">List</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingFour">
+                <div class="mb-0 content-option">
+                  <button class="btn btn-link collapsed"
+                          type="button"
+                          data-toggle="collapse" 
+                          data-target="#4"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo">
+                    <span>Roles</span>
+                  </button>
+                  <div class="arrow-bottom"></div>
+                </div>
+              </div>
+              <div id="4" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div class="card-body">
+                  <ul>
+                    <li><a asp-controller="Roles" asp-action="Create">Create</a></li>
+                    <li><a asp-controller="Roles" asp-action="Index">List</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </date-left-menu>
+      </div>
 
-            <div class="col-md-9 content-body">
-                @RenderBody()
-            </div>
-        </div>
+      <div class="col-md-9 content-body">
+        @RenderBody()
+      </div>
     </div>
+  </div>
 </date-body>
 </body>
 </html>

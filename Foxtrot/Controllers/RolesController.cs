@@ -1,24 +1,31 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Foxtrot.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Foxtrot.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Foxtrot.Controllers
 {
     public class RolesController : Controller
     {
         private readonly FoxtrotContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public RolesController(FoxtrotContext context)
+        public RolesController(FoxtrotContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: Roles
         public async Task<IActionResult> Index()
         {
+            if (!_httpContextAccessor.HttpContext.IsUserLoggedIn())
+                return RedirectToAction("Index", "Access");
+            
             return View(await _context.Roles.ToListAsync());
         }
 
