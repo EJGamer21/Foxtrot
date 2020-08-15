@@ -11,6 +11,8 @@ namespace Foxtrot.Repositories.Contracts
         Task<IEnumerable<T>> Get(Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "");
+
+        Task<int> Count(Expression<Func<T, bool>> filter = null);
         Task<T> GetById(object id);
         Task Insert(T entity);
         Task<T> Delete(object id);

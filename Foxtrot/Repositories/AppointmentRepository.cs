@@ -23,6 +23,7 @@ namespace Foxtrot.Repositories
                 .Include(a => a.Creator)
                 .Include(a => a.Provider)
                 .Include(a => a.Service)
+                .Include(a => a.Status)
                 .FirstOrDefaultAsync(a => a.Id == (Guid) id);
         }
 
@@ -33,6 +34,7 @@ namespace Foxtrot.Repositories
                 .Include(a => a.Creator)
                 .Include(a => a.Provider)
                 .Include(a => a.Service)
+                .Include(a => a.Status)
                 .Where(a => !a.IsDeleted)
                 .ToListAsync();
         }

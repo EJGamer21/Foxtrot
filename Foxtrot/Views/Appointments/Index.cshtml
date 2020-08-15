@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Foxtrot.Models.Appointment>
+﻿@using Foxtrot.Enums
+@model IEnumerable<Foxtrot.Models.Appointment>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,6 +23,7 @@
                 <th scope="col">Creator</th>
                 <th scope="col">Provider</th>
                 <th scope="col">Note</th>
+                <th scope="col">Status</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -45,12 +47,18 @@
                         <span>@appointment.Note</span>
                     </td>
                     <td>
-                        <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@appointment.Id">
-                            <img src="~/img/icono.editar.png" class="img-edit" alt="edit"/>
-                        </a>
-                        <a asp-controller="Appointments" asp-action="Delete" asp-route-id="@appointment.Id">
-                            <img src="~/img/icono.borrar.png" class="img-edit" alt="edit"/>
-                        </a>
+                        <span>@appointment.Status.Name</span>
+                    </td>
+                    <td>
+                        @if (appointment.Status.Id != (int) AppointmentStatusEnum.Closed)
+                        {
+                            <a asp-controller="Appointments" asp-action="Edit" asp-route-id="@appointment.Id">
+                                <img src="~/img/icono.editar.png" class="img-edit" alt="edit"/>
+                            </a>
+                            <a asp-controller="Appointments" asp-action="Delete" asp-route-id="@appointment.Id">
+                                <img src="~/img/icono.borrar.png" class="img-edit" alt="edit"/>
+                            </a>
+                        }
                     </td>
                 </tr>
             }

@@ -11,5 +11,6 @@ namespace Foxtrot.Models
         public User Creator { get; set; }
         public Service Service { get; set; }
         public User Provider { get; set; }
+        public AppointmentStatus Status { get; set; }
     }
 }

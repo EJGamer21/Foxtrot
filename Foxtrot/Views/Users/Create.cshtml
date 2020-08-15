@@ -4,10 +4,6 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>User</h4>
-<hr />
 <div class="card card-shadow card-padding">
     <div class="card-header white">
         <span class="card-title">New user</span>
@@ -25,6 +21,10 @@
             <div class="form-group">
               <label for="Email">Email</label>
               <input type="email" asp-for="Email" class="form-control" id="Email">
+            </div>
+            <div class="form-group">
+              <label for="Password">Password</label>
+              <input type="password" asp-for="Password" class="form-control" id="Password">
             </div>
             <div class="form-group">
                 <label for="Address">Address</label>

@@ -36,14 +36,18 @@ namespace Foxtrot.Repositories
                 query = query.Include(includeProperty);
             }
 
-            if (orderBy != null)
-            {
-                return await orderBy(query).ToListAsync();
-            }
-            else
-            {
-                return await query.ToListAsync();
-            }
+            return orderBy != null 
+                ? await orderBy(query).ToListAsync() 
+                : await query.ToListAsync();
+        }
+
+        public virtual async Task<int> Count(Expression<Func<T, bool>> filter = null)
+        {
+            IQueryable<T> query = _dbSet;
+
+            return filter != null 
+                ? await query.CountAsync(filter)
+                : await query.CountAsync();
         }
 
         public virtual async Task<T> GetById(object id)

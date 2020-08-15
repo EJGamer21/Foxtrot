@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Foxtrot.Models;
 using Foxtrot.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
+using Bcrypt = BCrypt.Net.BCrypt;
 
 namespace Foxtrot.Controllers
 {
@@ -70,11 +71,20 @@ namespace Foxtrot.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(userDto.Email) && !string.IsNullOrWhiteSpace(userDto.Dni))
                 {
+
+                    var dnis = await _context.Users
+                        .Where(u => u.Dni == userDto.Dni && !u.IsDeleted)
+                        .ToListAsync();
+
+                    if (dnis.Count >= 1)
+                        return BadRequest(new {Message = "Duplicated dni"});
+                    
                     await _context.AddAsync(new User
                     {
                         Id = new Guid(),
                         FullName = userDto.FullName,
                         Email = userDto.Email,
+                        Password = Bcrypt.HashPassword(userDto.Password),
                         Address = userDto.Address,
                         Dni = userDto.Dni,
                         Role = await _context.Roles.FindAsync(userDto.RoleId)
@@ -87,7 +97,7 @@ namespace Foxtrot.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { Message = "Has been an error."});
+                return BadRequest(new { Message = "Error.", Data = ex.Message});
             }
         }
 
@@ -131,10 +141,18 @@ namespace Foxtrot.Controllers
                     User user = await _context.Users.FindAsync(userDto.Id);
                     user.Address = userDto.Address;
                     user.FullName = userDto.FullName;
+                    user.Password = Bcrypt.HashPassword(userDto.Password);
                     user.Email = userDto.Email;
                     user.Dni = userDto.Dni;
                     user.Role = await _context.Roles.FindAsync(userDto.RoleId);
-                    
+
+                    var dnis = await _context.Users
+                        .Where(u => u.Dni == user.Dni && !u.IsDeleted)
+                        .ToListAsync();
+
+                    if (dnis.Count >= 1)
+                        return BadRequest(new {Message = "Duplicated dni"});
+
                     _context.Update(user);
                     await _context.SaveChangesAsync();
                 }

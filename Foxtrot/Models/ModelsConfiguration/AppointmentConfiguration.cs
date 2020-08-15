@@ -26,6 +26,9 @@ namespace Foxtrot.Models.ModelsConfiguration
 
             builder.HasOne(x => x.Provider)
                 .WithMany(x => x.Appointments);
+
+            builder.HasOne(x => x.Status)
+                .WithMany(x => x.Appointments);
             
             builder.Property(x => x.IsDeleted)
                 .HasDefaultValue(false);
