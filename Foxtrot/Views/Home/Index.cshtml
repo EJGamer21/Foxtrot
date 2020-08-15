@@ -5,17 +5,18 @@
   Layout = "_Layout";
 }
 
-<h2>Dashboard</h2>
-
-<div class="card-body">
+<div class="card card-body">
+  <h2>Dashboard</h2>
+  <hr/>
+  
   <div class="row"> 
     <div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Abiertas</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Opened citas</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Opened</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Opened appointments</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -24,15 +25,14 @@
         </div>
       </div>
     </div>
-                        
-    <!-- Earnings (Annual) Card Example -->
+    
     <div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-left-success shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Terminadas</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Closed citas</div>
+              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Closed</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Closed appointments</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -47,8 +47,8 @@
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Canceladas</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Cancelled citas</div>
+              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Cancelled</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Cancelled appointments</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -60,16 +60,15 @@
   </div>
                                   
   <div class="row">
-    <!-- Tasks Card Example -->
     <div class="col-xl-8 col-md-6 mb-4">
       <div class="card border-left-info shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Porcentaje de terminadas</div>
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Average of closed</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@(Model.ClosedAvg)%</div>
                 </div>
                 <div class="col">
                   <div class="progress progress-sm mr-2">
@@ -86,14 +85,14 @@
         </div>
       </div>
     </div>
-    <!-- Pending Requests Card Example -->
+    
     <div class="col-xl-4 col-md-6 mb-4">
       <div class="card border-left-warning shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pendientes</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Pending</div>
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Pending appointments</div>
             </div>
             <div class="col-auto">
               <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -102,17 +101,5 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-12 mb-4">
-      <div class="card  shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <canvas id="myPieChart" style="height: 249px;"></canvas>
-            </div> 
-          </div>
-        </div>
-      </div>
-    </div>
-                                   
   </div>
 </div>

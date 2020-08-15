@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Foxtrot.Dtos;
 using Foxtrot.Enums;
@@ -8,6 +7,7 @@ using Foxtrot.Models;
 using Microsoft.AspNetCore.Mvc;
 using Foxtrot.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace Foxtrot.Controllers
 {
@@ -16,16 +16,18 @@ namespace Foxtrot.Controllers
         private readonly IAppointmentRepository _appointmentRepository;
         private readonly IServiceRepository _serviceRepository;
         private readonly IUserRepository _userRepository;
+        private readonly FoxtrotContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AppointmentsController(IAppointmentRepository appointmentRepository,
             IServiceRepository serviceRepository, IUserRepository userRepository,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor, FoxtrotContext context)
         {
             _appointmentRepository = appointmentRepository;
             _serviceRepository = serviceRepository;
             _userRepository = userRepository;
             _httpContextAccessor = httpContextAccessor;
+            _context = context;
         }
 
         // GET: Appointments
@@ -41,17 +43,12 @@ namespace Foxtrot.Controllers
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var appointment = await _appointmentRepository.GetById(id);
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-
-            return View(appointment);
+            return appointment == null
+                ? (IActionResult) NotFound() 
+                : View(appointment);
         }
 
         // GET: Appointments/Create
@@ -77,6 +74,8 @@ namespace Foxtrot.Controllers
                     Creator = await _userRepository.GetById(_httpContextAccessor.HttpContext.GetLoggedUserId()),
                     Provider = await _userRepository.GetById(appointmentDto.ProviderId),
                     Service = await _serviceRepository.GetById(appointmentDto.ServiceId),
+                    Status = await _context.AppointmentStatus
+                        .FirstOrDefaultAsync(s => s.Id == (int) AppointmentStatusEnum.Opened),
                     StartDate = appointmentDto.StartDate,
                     EndDate = appointmentDto.EndDate
                 });
@@ -91,19 +90,17 @@ namespace Foxtrot.Controllers
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var appointment = await _appointmentRepository.GetById(id);
             ViewBag.Appointment = appointment;
             ViewBag.Services = await _serviceRepository.Get();
             ViewBag.Providers = await _userRepository.Get();
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-            return View();
+            ViewBag.Statuses = await _context.AppointmentStatus.ToListAsync();
+
+            return appointment == null 
+                ? (IActionResult) NotFound() 
+                : View();
         }
 
         // POST: Appointments/Edit/5
@@ -114,9 +111,7 @@ namespace Foxtrot.Controllers
         public async Task<IActionResult> Edit(Guid id, [FromForm] AppointmentDto appointmentDto)
         {
             if (id != appointmentDto.Id)
-            {
                 return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
@@ -126,6 +121,7 @@ namespace Foxtrot.Controllers
                 appointment.EndDate = appointmentDto.EndDate;
                 appointment.Service = await _serviceRepository.GetById(appointmentDto.ServiceId);
                 appointment.Provider = await _userRepository.GetById(appointmentDto.ProviderId);
+                appointment.Status = await _context.AppointmentStatus.FindAsync(appointmentDto.StatusId);
                 
                 await _appointmentRepository.Update(appointment);
                 return RedirectToAction(nameof(Index));

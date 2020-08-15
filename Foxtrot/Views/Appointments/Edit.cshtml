@@ -4,11 +4,6 @@
   ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Appointment</h4>
-<hr />
-
 <div class="card card-shadow card-padding">
   <div class="card-header white">
     <span class="card-title">Editar cita</span>
@@ -20,7 +15,7 @@
         <input readonly asp-for="Id" class="form-control" id="Id">
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           <label for="Service">Service</label>
           <select asp-for="ServiceId" id="Service" class="form-control">
             <option>Choose...</option>
@@ -31,7 +26,7 @@
             }
           </select>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           <label for="Provider">Provider</label>
           <select asp-for="ProviderId" id="Provider" class="form-control">
             <option selected>Choose...</option>
@@ -39,6 +34,17 @@
             @foreach (User provider in ViewBag.Providers)
             {
               <option value="@provider.Id">@provider.FullName</option>
+            }
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="Provider">Status</label>
+          <select asp-for="StatusId" id="Status" class="form-control">
+            <option selected>Choose...</option>
+            <option selected value="@ViewBag.Appointment.Status.Id">@ViewBag.Appointment.Status.Name</option>
+            @foreach (AppointmentStatus status in ViewBag.Statuses)
+            {
+              <option value="@status.Id">@status.Name</option>
             }
           </select>
         </div>

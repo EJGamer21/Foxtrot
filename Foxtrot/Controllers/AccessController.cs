@@ -29,7 +29,7 @@ namespace Foxtrot.Controllers
         public IActionResult Index()
         {
             if (_httpContextAccessor.HttpContext.IsUserLoggedIn())
-                return RedirectToAction("Index", "Appointments");
+                return RedirectToAction("Index", "Home");
             
             return View("Login");
         }
